@@ -1,0 +1,12 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle
+oneup_flysystem:
+    adapters:
+        app_local_adapter:
+            local:
+                location: '%kernel.project_dir%/public/uploads'
+    filesystems:
+        #Services created name: '@oneup_flysystem.app_local_adapter_filesystem'
+        app_local_adapter:
+            adapter: app_local_adapter
+            visibility: public
+            directory_visibility: public

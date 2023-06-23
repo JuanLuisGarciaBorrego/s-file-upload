@@ -1,0 +1,17 @@
+api_platform:
+  title: 'Upload file'
+  description: 'juanluisgarciaborrego.com'
+  version: '0.0.1'
+  show_webby: false
+  path_segment_name_generator: 'api_platform.path_segment_name_generator.dash'
+
+  # Specify a name converter to use.
+  name_converter: ~
+  mapping:
+    paths: ['%kernel.project_dir%/src/Entity']
+  patch_formats:
+    json: ['application/merge-patch+json']
+  swagger:
+    versions: [3]
+    swagger_ui_extra_configuration:
+      docExpansion: none
