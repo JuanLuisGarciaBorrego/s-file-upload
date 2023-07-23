@@ -61,10 +61,10 @@ class FileUploadAction
     {
         $socket = socket_create(AF_UNIX, SOCK_STREAM, 0);
         if ($socket === false) {
-            throw new \Exception(socket_last_error());
+            throw new Exception(socket_last_error());
         }
-        if (socket_connect($socket, $socketLocation) === false) {
-            throw new \Exception("Unable to connect to specified socket location $socketLocation");
+        if(socket_connect($socket, $socketLocation) === false) {
+            throw new Exception("Unable to connect to specified socket location $socketLocation");
         }
         $json = json_encode([
             "input_file" => $inputFile,
@@ -77,15 +77,15 @@ class FileUploadAction
             "blackType" => $blackType,
         ]);
         $json_len = strlen($json);
-        socket_write($socket, pack("J", $json_len), 8);
+        socket_write($socket, pack("Q", $json_len), 8);
         socket_write($socket, $json, $json_len);
         $json_len = "";
         socket_recv($socket, $json_len, 8, MSG_WAITALL);
-        $json_len = unpack("J", $json_len)[1];
+        $json_len = unpack("Q", $json_len)[1];
         $json = "";
         socket_recv($socket, $json, $json_len, MSG_WAITALL);
         $json = json_decode($json, true);
-
+            
         return $json;
     }
 }
